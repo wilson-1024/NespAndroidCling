@@ -1,13 +1,16 @@
 package com.nesp.android.cling.control;
 
 import android.util.Log;
+
 import androidx.annotation.Nullable;
+
 import com.nesp.android.cling.control.callback.ControlCallback;
 import com.nesp.android.cling.control.callback.ControlReceiveCallback;
 import com.nesp.android.cling.entity.*;
 import com.nesp.android.cling.service.manager.ClingManager;
 import com.nesp.android.cling.util.ClingUtils;
 import com.nesp.android.cling.util.Utils;
+
 import org.fourthline.cling.controlpoint.ControlPoint;
 import org.fourthline.cling.model.action.ActionInvocation;
 import org.fourthline.cling.model.message.UpnpResponse;
@@ -35,14 +38,19 @@ import java.util.Date;
 public class ClingPlayControl implements IPlayControl {
 
     private static final String TAG = ClingPlayControl.class.getSimpleName();
-    /** 每次接收 500ms 延迟 */
+    /**
+     * 每次接收 500ms 延迟
+     */
     private static final int RECEIVE_DELAY = 500;
-    /** 上次设置音量时间戳, 防抖动 */
+    /**
+     * 上次设置音量时间戳, 防抖动
+     */
     private long mVolumeLastTime;
     /**
      * 当前状态
      */
-    private @DLANPlayState.DLANPlayStates int mCurrentState = DLANPlayState.STOP;
+    private @DLANPlayState.DLANPlayStates
+    int mCurrentState = DLANPlayState.STOP;
     private static final String DIDL_LITE_FOOTER = "</DIDL-Lite>";
     private static final String DIDL_LITE_HEADER = "<?xml version=\"1.0\"?>" + "<DIDL-Lite " + "xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" " +
             "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + "xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" " +
@@ -217,7 +225,7 @@ public class ClingPlayControl implements IPlayControl {
             return;
         }
         long currentTimeMillis = System.currentTimeMillis();
-        if (currentTimeMillis > mVolumeLastTime + RECEIVE_DELAY){
+        if (currentTimeMillis > mVolumeLastTime + RECEIVE_DELAY) {
             controlPointImpl.execute(new SetVolume(rcService, pos) {
 
                 @Override
@@ -271,8 +279,8 @@ public class ClingPlayControl implements IPlayControl {
     /**
      * 设置片源，用于首次播放
      *
-     * @param url   片源地址
-     * @param callback  回调
+     * @param url      片源地址
+     * @param callback 回调
      */
     private void setAVTransportURI(String url, final ControlCallback callback) {
         if (Utils.isNull(url)) {
@@ -318,11 +326,12 @@ public class ClingPlayControl implements IPlayControl {
             return;
         }
 
-        Log.d(TAG, "Found media render service in device, sending get position");
+        Log.d(TAG, "ClingPlayControl.getPositionInfo:Found media render service in device, sending get position");
 
         GetPositionInfo getPositionInfo = new GetPositionInfo(avtService) {
             @Override
             public void failure(ActionInvocation invocation, UpnpResponse operation, String defaultMsg) {
+                Log.d(TAG, "ClingPlayControl.failure:defaultMsg " + defaultMsg);
                 if (Utils.isNotNull(callback)) {
                     callback.fail(new ClingPositionResponse(invocation, operation, defaultMsg));
                 }
@@ -338,6 +347,7 @@ public class ClingPlayControl implements IPlayControl {
 
             @Override
             public void received(ActionInvocation invocation, PositionInfo info) {
+                Log.d(TAG, "ClingPlayControl.received:info " + info);
                 if (Utils.isNotNull(callback)) {
                     callback.receive(new ClingPositionResponse(invocation, info));
                 }

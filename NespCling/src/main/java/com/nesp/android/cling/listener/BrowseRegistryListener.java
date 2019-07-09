@@ -1,12 +1,12 @@
 package com.nesp.android.cling.listener;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
+
 import com.nesp.android.cling.entity.ClingDevice;
 import com.nesp.android.cling.entity.ClingDeviceList;
 import com.nesp.android.cling.service.manager.ClingManager;
 import com.nesp.android.cling.util.Utils;
+
 import org.fourthline.cling.model.meta.Device;
 import org.fourthline.cling.model.meta.LocalDevice;
 import org.fourthline.cling.model.meta.RemoteDevice;
@@ -52,12 +52,12 @@ public class BrowseRegistryListener extends DefaultRegistryListener {
 
     @Override
     public void localDeviceAdded(Registry registry, LocalDevice device) {
-        //        deviceAdded(device); // 本地设备 已加入
+                deviceAdded(device); // 本地设备 已加入
     }
 
     @Override
     public void localDeviceRemoved(Registry registry, LocalDevice device) {
-        //        deviceRemoved(device); // 本地设备 已移除
+                deviceRemoved(device); // 本地设备 已移除
     }
 
     private void deviceAdded(Device device) {

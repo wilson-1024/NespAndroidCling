@@ -28,9 +28,7 @@ allprojects {
         maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
         jcenter()
         mavenCentral()
-        maven {
-            url 'http://4thline.org/m2'
-        }
+        maven { url 'http://4thline.org/m2' }
     }
 }
 

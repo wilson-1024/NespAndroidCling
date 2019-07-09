@@ -18,7 +18,7 @@ public class DLANPlayState {
     public static final int PAUSE = 2;
     /** 停止状态 */
     public static final int STOP = 3;
-    /** 转菊花状态 */
+    /** 转菊花缓冲状态 */
     public static final int BUFFER = 4;
     /** 投放失败 */
     public static final int ERROR = 5;

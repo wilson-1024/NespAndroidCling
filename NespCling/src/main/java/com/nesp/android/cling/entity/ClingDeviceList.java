@@ -1,7 +1,9 @@
 package com.nesp.android.cling.entity;
 
 import androidx.annotation.Nullable;
+
 import com.nesp.android.cling.util.Utils;
+
 import org.fourthline.cling.model.meta.Device;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class ClingDeviceList {
      */
     private Collection<ClingDevice> mClingDeviceList;
 
-    private ClingDeviceList(){
+    private ClingDeviceList() {
         mClingDeviceList = new ArrayList<>();
     }
 
@@ -33,29 +35,35 @@ public class ClingDeviceList {
         return INSTANCE;
     }
 
-    public void removeDevice(ClingDevice device){
+    public void removeDevice(ClingDevice device) {
+        if (mClingDeviceList == null) {
+            mClingDeviceList = new ArrayList<>();
+        }
         mClingDeviceList.remove(device);
     }
 
-    public void addDevice(ClingDevice device){
+    public void addDevice(ClingDevice device) {
+        if (mClingDeviceList == null) {
+            mClingDeviceList = new ArrayList<>();
+        }
         mClingDeviceList.add(device);
     }
 
     @Nullable
-    public ClingDevice getClingDevice(Device device){
-        for (ClingDevice clingDevice : mClingDeviceList){
+    public ClingDevice getClingDevice(Device device) {
+        for (ClingDevice clingDevice : mClingDeviceList) {
             Device deviceTemp = clingDevice.getDevice();
-            if (deviceTemp != null && deviceTemp.equals(device)){
+            if (deviceTemp != null && deviceTemp.equals(device)) {
                 return clingDevice;
             }
         }
         return null;
     }
 
-    public boolean contain(Device device){
-        for (ClingDevice clingDevice : mClingDeviceList){
+    public boolean contain(Device device) {
+        for (ClingDevice clingDevice : mClingDeviceList) {
             Device deviceTemp = clingDevice.getDevice();
-            if (deviceTemp != null && deviceTemp.equals(device)){
+            if (deviceTemp != null && deviceTemp.equals(device)) {
                 return true;
             }
         }
@@ -63,7 +71,7 @@ public class ClingDeviceList {
     }
 
     @Nullable
-    public Collection<ClingDevice> getClingDeviceList(){
+    public Collection<ClingDevice> getClingDeviceList() {
         return mClingDeviceList;
     }
 
@@ -71,7 +79,7 @@ public class ClingDeviceList {
         mClingDeviceList = clingDeviceList;
     }
 
-    public void destroy(){
+    public void destroy() {
         mClingDeviceList = null;
         INSTANCE = null;
     }
